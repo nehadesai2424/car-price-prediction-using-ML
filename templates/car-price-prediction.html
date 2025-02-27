@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <title>Car Price Prediction</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/">Car Price Prediction</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/car-price-prediction">Car Price Prediction Project</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div class="container">
+            <h1>Car Price Prediction</h1>
+            This Algorithm takes following inputs
+            <ul>
+              <li>Company</li>
+              <li>Name</li>
+              <li>Year</li>
+              <li>Kms Driven</li>
+              <li>Fuel Type</li>
+            </ul>
+            and predicts possible price of car.
+            <hr />
+            <form action="car-price-prediction-result">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-3">
+                  Company
+                </div>
+                <div class="col-9">
+                  <select class="form-control" name="company" onChange="companyChanged(this)" required>
+                      <option value="">Select</option>
+                      {% for company in companies %}
+                        <option value="{{ company }}">{{ company }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-3">
+                  Name
+                </div>
+                <div class="col-9">
+                  <select class="form-control" id="name" name="name" required>
+                      <option value="">Select</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-3">
+                  Year
+                </div>
+                <div class="col-9">
+                  <select class="form-control" name="year" required>
+                      <option value="">Select</option>
+                      {% for year in range(2000, 2024) %}
+                        <option value="{{ year }}">{{ year }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-3">
+                  Kms Driven
+                </div>
+                <div class="col-9">
+                  <input type="number" name="kms_driven" class="form-control" min="0" max="1000000" step="1000" required/>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-3">
+                  Fuel Type
+                </div>
+                <div class="col-9">
+                  <select class="form-control" name="fuel_type" required>
+                      <option value="">Select</option>
+                      <option value="Petrol">Petrol</option>
+                      <option value="Diesel">Diesel</option>
+                      <option value="LPG">LPG</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-3">
+                </div>
+                <div class="col-9">
+                  <input type="submit" value="Predict" class="btn btn-success" />
+                </div>
+              </div>
+            </div>
+          </form>
+          </div>
+
+          <script>
+              let namesArray = new Array();
+              {% for name in names %}
+              namesArray.push('{{ name }}');
+              {% endfor %}
+
+              function companyChanged(ctrl){
+                let name = document.getElementById("name");
+                let mynames = '<option value="">Select</option>';
+                for(let i = 0; i < namesArray.length; i++){
+                  if(namesArray[i].indexOf(ctrl.value) >= 0){
+                    mynames += '<option value="' + namesArray[i] + '">' + namesArray[i] + '</option>';
+                  }
+                }
+                name.innerHTML = mynames;
+              }
+          </script>
+    </body>
+</html>
